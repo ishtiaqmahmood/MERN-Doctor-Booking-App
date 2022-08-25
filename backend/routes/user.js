@@ -61,19 +61,22 @@ router.post("/login", async (req, res) => {
 router.post("/get-user-info-by-id", auth, async (req, res) => {
   try {
     const user = await User.findOne({ _id: req.body.userId });
+    console.log(user);
+    user.password = undefined;
     if (!user) {
       return res
         .status(200)
         .send({ message: "User does not exist", success: false });
     } else {
-      res
-        .status(200)
-        .send({ success: true, data: { name: user.name, email: user.email } });
+      res.status(200).send({
+        success: true,
+        data: user,
+      });
     }
-  } catch (err) {
+  } catch (error) {
     res
       .status(500)
-      .send({ message: "Error getting user info", success: false, err });
+      .send({ message: "Error getting user info", success: false, error });
   }
 });
 

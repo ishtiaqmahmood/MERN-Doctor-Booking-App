@@ -12,12 +12,12 @@ function register() {
   const dispatch = useDispatch();
   const onFinishHandler = async (values) => {
     try {
-      dispatch(showLoading);
+      dispatch(showLoading());
       const response = await axios.post(
         "http://localhost:8000/api/user/register",
         values
       );
-      dispatch(hideLoading);
+      dispatch(hideLoading());
       if (response.data.success) {
         toast.success(response.data.message);
         toast("Redirect to login page");
@@ -26,7 +26,7 @@ function register() {
         toast.error(response.data.message);
       }
     } catch (error) {
-      dispatch(showLoading);
+      dispatch(hideLoading());
       toast.error("Something went wrong");
     }
   };

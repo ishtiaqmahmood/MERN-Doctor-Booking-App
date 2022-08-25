@@ -17,7 +17,7 @@ function login() {
         "http://localhost:8000/api/user/login",
         values
       );
-      dispatch(hideLoading);
+      dispatch(hideLoading());
       if (response.data.success) {
         toast.success(response.data.message);
         toast("Redirect to home page");
@@ -27,7 +27,7 @@ function login() {
         toast.error(response.data.message);
       }
     } catch (error) {
-      dispatch(hideLoading);
+      dispatch(hideLoading());
       toast.error("Something went wrong");
     }
   };
