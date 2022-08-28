@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { Router, useRouter } from "next/router";
 import { useSelector } from "react-redux";
+import { Badge } from "antd";
 
 const Layout = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
   const { user } = useSelector((state) => state.user);
-  console.log(user);
+  //console.log(user);
   const router = useRouter();
   const location = router;
   const userMenu = [
@@ -22,7 +23,7 @@ const Layout = ({ children }) => {
     },
     {
       name: "Apply Doctor",
-      path: "/apply-doctor",
+      path: "/applydoctor",
       icon: "ri-hospital-line",
     },
     {
@@ -55,8 +56,8 @@ const Layout = ({ children }) => {
     },
   ];
 
-  //const menuToBeRendered = user.isAdmin ? adminMenu : userMenu;
-  const menuToBeRendered = adminMenu;
+  const menuToBeRendered = user && user.isAdmin ? adminMenu : userMenu;
+  //const menuToBeRendered = adminMenu;
 
   return (
     <div className="main p-2">
@@ -109,9 +110,15 @@ const Layout = ({ children }) => {
               ></i>
             )}
             <div className="d-flex align-items-center px-4">
-              <i className="ri-notification-2-line header-action-icon px-3"></i>
+              <Badge
+                count={user?.unseenNotifications.length}
+                onClick={() => router.push("/notifications")}
+              >
+                <i className="ri-notification-2-line header-action-icon px-3"></i>
+              </Badge>
+
               <Link className="anchor" href="/profile">
-                <a>{user?.name}</a>
+                <a className="align">{user?.name}</a>
               </Link>
             </div>
           </div>
