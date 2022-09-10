@@ -1,21 +1,28 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import { useDispatch, useSelector } from "react-redux";
 import { showLoading, hideLoading } from "../redux/alertSlice";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import Router from "next/router";
+import { useRouter } from "next/router";
 import DoctorForm from "../components/DoctorForm";
-import moment from "moment";
+import moment from "moment/moment";
 
-const applyDoctor = () => {
-  const dispatch = useDispatch();
+const doctorProfile = () => {
   const { user } = useSelector((state) => state.user);
+  const [doctor, setDoctor] = useState(null);
+  const router = useRouter();
+  const params = router.query.path;
+  console.log(params);
+  // const keys = Object.keys(params);
+  // console.log(keys);
+  const dispatch = useDispatch();
   const onFinish = async (values) => {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "http://localhost:8000/api/user/apply-doctor-account",
+        "http://localhost:8000/api/doctor/update-doctor-profile",
         {
           ...values,
           userId: user._id,
@@ -24,7 +31,6 @@ const applyDoctor = () => {
             moment(values.timings[1]).format("HH:mm"),
           ],
         },
-
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -45,6 +51,37 @@ const applyDoctor = () => {
       console.log(error);
     }
   };
+  const getDoctorData = async () => {
+    try {
+      dispatch(showLoading());
+      const response = await axios.post(
+        "http://localhost:8000/api/doctor/get-doctor-info-by-user-id",
+        {
+          userId: params,
+        },
+
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      dispatch(hideLoading());
+      if (response.data.success) {
+        setDoctor(response.data.data);
+      }
+    } catch (error) {
+      dispatch(hideLoading());
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (router.isReady) {
+      getDoctorData();
+    }
+  }, [router.isReady]);
+
   const ProtectedRoute = () => {
     if (typeof window !== "undefined") {
       const item = localStorage.getItem("token");
@@ -56,6 +93,7 @@ const applyDoctor = () => {
   useEffect(() => {
     ProtectedRoute();
   }, []);
+
   return (
     <Layout>
       <Toaster
@@ -71,11 +109,11 @@ const applyDoctor = () => {
           },
         }}
       />
-      <h1 className="page-title">Apply Doctor</h1>
+      <h1 className="page-title">Doctor profile</h1>
       <hr />
-      <DoctorForm onFinish={onFinish} />
+      {doctor && <DoctorForm onFinish={onFinish} initialValues={doctor} />}
     </Layout>
   );
 };
 
-export default applyDoctor;
+export default doctorProfile;

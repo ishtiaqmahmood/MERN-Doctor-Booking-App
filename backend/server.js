@@ -7,6 +7,8 @@ const app = express();
 
 // bringing routes
 const userRoute = require("./routes/user");
+const adminRoute = require("./routes/admin");
+const doctorRoute = require("./routes/doctor");
 
 // databases
 
@@ -29,6 +31,8 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use("/api/user", userRoute);
+app.use("/api/admin", adminRoute);
+app.use("/api/doctor", doctorRoute);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Listening on port ${port}`));

@@ -6,29 +6,34 @@ import { Badge } from "antd";
 
 const Layout = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
+
   const { user } = useSelector((state) => state.user);
-  //console.log(user);
+  console.log(user);
   const router = useRouter();
   const location = router;
   const userMenu = [
     {
       name: "Home",
       path: "/",
+      query: "",
       icon: "ri-home-line",
     },
     {
       name: "Appointments",
       path: "/appointments",
+      query: "",
       icon: "ri-file-list-line",
     },
     {
       name: "Apply Doctor",
       path: "/applydoctor",
+      query: "",
       icon: "ri-hospital-line",
     },
     {
       name: "profile",
       path: "/profile",
+      query: "",
       icon: "ri-file-user-line",
     },
   ];
@@ -37,34 +42,66 @@ const Layout = ({ children }) => {
     {
       name: "Home",
       path: "/",
+      query: "",
       icon: "ri-home-line",
     },
     {
       name: "Users",
-      path: "/users",
+      path: "/user-list",
+      query: "",
       icon: "ri-user-line",
     },
     {
       name: "Doctors",
-      path: "/doctors",
+      path: "/doctor-list",
+      query: "",
       icon: "ri-hospital-line",
     },
     {
       name: "profile",
       path: "/profile",
+      query: "",
       icon: "ri-file-user-line",
     },
   ];
 
-  const menuToBeRendered = user && user.isAdmin ? adminMenu : userMenu;
+  const doctorMenu = [
+    {
+      name: "Home",
+      path: "/",
+      query: "",
+      icon: "ri-home-line",
+    },
+    {
+      name: "Appointments",
+      path: "/appointments",
+      query: "",
+      icon: "ri-file-list-line",
+    },
+    {
+      name: "profile",
+      path: `/doctor-profile/`,
+      query: user && `${user._id}`,
+      icon: "ri-file-user-line",
+    },
+  ];
+
+  const menuToBeRendered =
+    user && user.isAdmin
+      ? adminMenu
+      : user && user.isDoctor
+      ? doctorMenu
+      : userMenu;
   //const menuToBeRendered = adminMenu;
+  const role = user?.isAdmin ? "Admin" : user?.isDoctor ? "Doctor" : "User";
 
   return (
     <div className="main p-2">
       <div className="d-flex layout">
         <div className={`${collapsed ? "collapsed-sidebar" : "sidebar"}`}>
           <div className="sidebar-header">
-            <h1 className="logo">DB</h1>
+            <h1 className="logo">Doctor Booking</h1>
+            <h2 className="role">Account : {role}</h2>
           </div>
           <div className="menu">
             {menuToBeRendered.map((menu) => {
@@ -76,14 +113,24 @@ const Layout = ({ children }) => {
                   }`}
                 >
                   <i className={menu.icon}></i>
-                  {!collapsed && <Link href={menu.path}>{menu.name}</Link>}
+                  {!collapsed && (
+                    <Link
+                      href={{
+                        pathname: menu.path,
+                        query: { path: menu.query },
+                      }}
+                    >
+                      {menu.name}
+                    </Link>
+                  )}
                 </div>
               );
             })}
             <div
               className={`d-flex menu-item`}
               onClick={() => {
-                localStorage.clear();
+                localStorage.removeItem("token");
+                localStorage.removeItem("persist:auth");
                 router.push("/login");
               }}
             >
