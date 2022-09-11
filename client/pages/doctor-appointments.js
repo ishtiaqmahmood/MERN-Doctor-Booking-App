@@ -135,7 +135,7 @@ function doctorAppointments() {
           },
         }}
       />
-      <h1 className="page-header">Appointments</h1>
+      <h1 className="page-title">Appointments</h1>
       <hr />
       <Table columns={columns} dataSource={appointments} />
     </Layout>

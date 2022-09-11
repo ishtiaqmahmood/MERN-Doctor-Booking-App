@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import DoctorForm from "../components/DoctorForm";
 import moment from "moment/moment";
 import { Col, DatePicker, Row, TimePicker, Button } from "antd";
+import Image from "next/image";
 
 const bookAppointment = () => {
   const { user } = useSelector((state) => state.user);
@@ -82,6 +83,7 @@ const bookAppointment = () => {
       dispatch(hideLoading());
       if (response.data.success) {
         toast.success(response.data.message);
+        router.push("/appointment");
       }
     } catch (error) {
       toast.error("Error booking appointment");
@@ -143,17 +145,42 @@ const bookAppointment = () => {
       />
       {doctor && (
         <div>
-          <h1 className="page-title">
+          <h1 className="page-title container d-flex align-items-center justify-content-center">
             {doctor.firstName} {doctor.lastName}
           </h1>
           <hr />
-          <Row>
+          <Row gutter={20} className="mt-5">
+            <Col span={12} sm={24} xs={24} lg={8}>
+              {/* <Image
+                src="https://media.istockphoto.com/vectors/hand-pointer-or-cursor-mouse-clicking-on-book-online-button-linear-vector-id1319058954?k=20&m=1319058954&s=612x612&w=0&h=qXOYOr29EuZvzXNh6KLjtPg8UP4MybqNmuYt1SrUkrg="
+                alt=""
+                width={400}
+                height={400}
+              /> */}
+            </Col>
             <Col span={12} sm={24} xs={24} lg={8}>
               <h1 className="normal-text">
-                <b>Timings: </b>
+                <b>Timings : </b>
                 {doctor.timings[0]} - {doctor.timings[1]}
+                <hr />
               </h1>
-              <div className="d-flex flex-column pt-2">
+              <p>
+                <b>Phone Number : </b>
+                {doctor.phoneNumber}
+              </p>
+              <p>
+                <b>Address : </b>
+                {doctor.address}
+              </p>
+              <p>
+                <b>Fee per Visit : </b>
+                {doctor.feePerConsultation}
+              </p>
+              <p>
+                <b>Website : </b>
+                {doctor.website}
+              </p>
+              <div className="d-flex flex-column pt-2 mt-2">
                 <DatePicker
                   format="DD-MM-YYYY"
                   onChange={(value) => {
@@ -169,12 +196,14 @@ const bookAppointment = () => {
                     setTime(moment(value).format("HH:mm"));
                   }}
                 />
-                <Button
-                  className="primary-button mt-3"
-                  onClick={checkAvailability}
-                >
-                  Check Availability
-                </Button>
+                {!isAvailable && (
+                  <Button
+                    className="primary-button mt-3"
+                    onClick={checkAvailability}
+                  >
+                    Check Availability
+                  </Button>
+                )}
                 {isAvailable && (
                   <Button className="primary-button mt-3" onClick={bookNow}>
                     Book now

@@ -85,6 +85,7 @@ const appointment = () => {
     <Layout>
       <h1 className="page-title">Appointments</h1>
       <hr />
+      <hr />
       <Table columns={columns} dataSource={appointments} />
     </Layout>
   );
