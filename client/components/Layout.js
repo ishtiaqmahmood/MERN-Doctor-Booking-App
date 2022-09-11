@@ -8,7 +8,7 @@ const Layout = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
 
   const { user } = useSelector((state) => state.user);
-  console.log(user);
+  //console.log(user);
   const router = useRouter();
   const location = router;
   const userMenu = [
@@ -29,12 +29,6 @@ const Layout = ({ children }) => {
       path: "/applydoctor",
       query: "",
       icon: "ri-hospital-line",
-    },
-    {
-      name: "profile",
-      path: "/profile",
-      query: "",
-      icon: "ri-file-user-line",
     },
   ];
 

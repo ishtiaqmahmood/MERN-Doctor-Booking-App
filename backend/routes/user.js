@@ -211,6 +211,7 @@ router.post("/check-booking-availability", auth, async (req, res) => {
       .toISOString();
     const toTime = moment(req.body.time, "HH:mm").add(1, "hours").toISOString();
     const doctorId = req.body.doctorId;
+    console.log(req.body);
     const appointments = await Appointment.find({
       doctorId,
       date,

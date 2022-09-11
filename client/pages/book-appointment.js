@@ -95,20 +95,25 @@ const bookAppointment = () => {
   const checkAvailability = async () => {
     try {
       dispatch(showLoading());
-      const response = await axios.post(
-        "http://localhost:8000/api/user/check-booking-availability",
-        {
-          doctorId: params,
-          date: date,
-          time: time,
-        },
-
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+      const response =
+        date &&
+        time &&
+        time > doctor.timings[0] &&
+        time < doctor.timings[1] &&
+        (await axios.post(
+          "http://localhost:8000/api/user/check-booking-availability",
+          {
+            doctorId: params,
+            date: date,
+            time: time,
           },
-        }
-      );
+
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        ));
       dispatch(hideLoading());
       if (response.data.success) {
         toast.success(response.data.message);
@@ -204,6 +209,12 @@ const bookAppointment = () => {
                     Check Availability
                   </Button>
                 )}
+                {/* <Button
+                  className="primary-button mt-3"
+                  onClick={checkAvailability}
+                >
+                  Check Availability
+                </Button> */}
                 {isAvailable && (
                   <Button className="primary-button mt-3" onClick={bookNow}>
                     Book now
