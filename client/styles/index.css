@@ -87,6 +87,19 @@ label {
   font-size: 16px !important;
 }
 
+.full-width-button {
+  width: 100% !important;
+}
+
+p {
+  color: rgba(0, 0, 0, 0.673) !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+
 .align {
   padding-left: 20px !important;
 }

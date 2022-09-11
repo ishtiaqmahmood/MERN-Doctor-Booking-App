@@ -87,7 +87,7 @@ const notifications = () => {
           </div>
           {user.unseenNotifications.map((notification) => (
             <div
-              className="card p-2"
+              className="card p-2 mt-2"
               onClick={() => {
                 router.push(notification.onClickPath);
               }}
@@ -104,7 +104,7 @@ const notifications = () => {
           </div>
           {user.seenNotifications.map((notification) => (
             <div
-              className="card p-2"
+              className="card p-2 mt-2"
               onClick={() => {
                 router.push(notification.onClickPath);
               }}

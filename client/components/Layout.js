@@ -20,7 +20,7 @@ const Layout = ({ children }) => {
     },
     {
       name: "Appointments",
-      path: "/appointments",
+      path: "/appointment",
       query: "",
       icon: "ri-file-list-line",
     },
@@ -74,7 +74,7 @@ const Layout = ({ children }) => {
     },
     {
       name: "Appointments",
-      path: "/appointments",
+      path: "/doctor-appointments",
       query: "",
       icon: "ri-file-list-line",
     },
@@ -100,8 +100,12 @@ const Layout = ({ children }) => {
       <div className="d-flex layout">
         <div className={`${collapsed ? "collapsed-sidebar" : "sidebar"}`}>
           <div className="sidebar-header">
-            <h1 className="logo">Doctor Booking</h1>
-            <h2 className="role">Account : {role}</h2>
+            <h1 className={`${collapsed ? "collapsed-logo" : "logo"}`}>
+              Doctor Booking
+            </h1>
+            <h2 className={`${collapsed ? "collapsed-role" : "role"}`}>
+              Account : {role}
+            </h2>
           </div>
           <div className="menu">
             {menuToBeRendered.map((menu) => {
