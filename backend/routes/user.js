@@ -64,7 +64,7 @@ router.post("/login", async (req, res) => {
 router.post("/get-user-info-by-id", auth, async (req, res) => {
   try {
     const user = await User.findOne({ _id: req.body.userId });
-    console.log(user);
+    //console.log(user);
     user.password = undefined;
     if (!user) {
       return res
@@ -211,14 +211,14 @@ router.post("/check-booking-availability", auth, async (req, res) => {
       .toISOString();
     const toTime = moment(req.body.time, "HH:mm").add(1, "hours").toISOString();
     const doctorId = req.body.doctorId;
-    console.log(req.body);
+    // console.log(req.body);
     const appointments = await Appointment.find({
       doctorId,
       date,
       time: { $gte: fromTime, $lte: toTime },
       //status: "approved",
     });
-    console.log(appointments.length);
+    //console.log(appointments.length);
     if (appointments.length > 0) {
       return res.status(200).send({
         message: "Appointments not available",

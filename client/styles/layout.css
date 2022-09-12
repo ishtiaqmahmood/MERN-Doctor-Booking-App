@@ -13,26 +13,25 @@
   color: white;
   font-weight: bold;
   text-align: center;
-  font-size: 10px;
+  font-size: 16px;
 }
 
 .role {
-  color: red;
-  font-size: 14px;
+  color: black;
+  font-size: 20px;
   padding: 10px;
   text-align: center;
 }
 
 .collapsed-role {
-  color: red;
-  font-size: 14px;
+  color: black;
   padding: 10px;
   text-align: center;
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .sidebar {
-  background-color: black;
+  background-color: #2a7fba;
   border-radius: 5px;
   box-shadow: 0 0 2px gray;
   margin-right: 20px;
@@ -41,7 +40,7 @@
 }
 
 .collapsed-sidebar {
-  background-color: black;
+  background-color: #2a7fba;
   border-radius: 5px;
   box-shadow: 0 0 2px gray;
   margin-right: 20px;
@@ -56,7 +55,7 @@
 }
 
 .header {
-  background-color: white;
+  background-color: #2a7fba;
   border-radius: 5px;
   box-shadow: 0 0 2px gray;
   margin-bottom: 20px;
