@@ -56,17 +56,6 @@ function App() {
       dispatch(hideLoading());
     }
   };
-  const ProtectedRoute = () => {
-    if (typeof window !== "undefined") {
-      const item = localStorage.getItem("token");
-      if (!item) {
-        return Router.push("/login");
-      }
-    }
-  };
-  useEffect(() => {
-    ProtectedRoute();
-  }, []);
   useEffect(() => {
     if (!user) {
       getUser();
@@ -80,7 +69,7 @@ function App() {
     <Layout>
       <Row gutter={20}>
         {doctors.map((doctor) => (
-          <Col span={8} xs={24} sm={24} lg={8}>
+          <Col key={doctor._id} span={8} xs={24} sm={24} lg={8}>
             <Doctor doctor={doctor} />
           </Col>
         ))}

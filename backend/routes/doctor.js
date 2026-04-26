@@ -7,8 +7,8 @@ const Appointment = require("../models/appointment");
 
 router.post("/get-doctor-info-by-user-id", auth, async (req, res) => {
   try {
-    const doctor = await Doctor.findOne({ userId: req.body.userId });
-    // console.log(req.body.userId);
+    const doctor = await Doctor.findOne({ userId: req.userId });
+    // console.log(req.userId);
     // console.log(doctor);
     res.status(200).send({
       success: true,
@@ -42,7 +42,7 @@ router.post("/get-doctor-info-by-id", auth, async (req, res) => {
 router.post("/update-doctor-profile", auth, async (req, res) => {
   try {
     const doctor = await Doctor.findOneAndUpdate(
-      { userId: req.body.userId },
+      { userId: req.userId },
       req.body
     );
     // console.log(req.body.userId);
@@ -61,7 +61,7 @@ router.post("/update-doctor-profile", auth, async (req, res) => {
 
 router.get("/get-appointments-by-doctor-id", auth, async (req, res) => {
   try {
-    const doctor = await Doctor.findOne({ userId: req.body.userId });
+    const doctor = await Doctor.findOne({ userId: req.userId });
     const appointments = await Appointment.find({ doctorId: doctor._id });
     res.status(200).send({
       message: "Appointments fetched successfully",

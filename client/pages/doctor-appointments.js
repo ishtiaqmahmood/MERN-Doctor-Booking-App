@@ -7,21 +7,13 @@ import { Table } from "antd";
 import toast, { Toaster } from "react-hot-toast";
 import moment from "moment/moment";
 
-function doctorAppointments() {
+function DoctorAppointments() {
   const [appointments, setAppointments] = useState([]);
   const dispatch = useDispatch();
-  const ProtectedRoute = () => {
-    if (typeof window !== "undefined") {
-      const item = localStorage.getItem("token");
-      if (!item) {
-        return Router.push("/login");
-      }
-    }
-  };
   const getAppointmentsData = async () => {
     try {
       dispatch(showLoading());
-      const resposne = await axios.get(
+      const response = await axios.get(
         "http://localhost:8000/api/doctor/get-appointments-by-doctor-id",
         {
           headers: {
@@ -30,8 +22,8 @@ function doctorAppointments() {
         }
       );
       dispatch(hideLoading());
-      if (resposne.data.success) {
-        setAppointments(resposne.data.data);
+      if (response.data.success) {
+        setAppointments(response.data.data);
       }
     } catch (error) {
       dispatch(hideLoading());
@@ -41,7 +33,7 @@ function doctorAppointments() {
   const changeAppointmentStatus = async (record, status) => {
     try {
       dispatch(showLoading());
-      const resposne = await axios.post(
+      const response = await axios.post(
         "http://localhost:8000/api/doctor/change-appointment-status",
         { appointmentId: record._id, status: status },
         {
@@ -51,8 +43,8 @@ function doctorAppointments() {
         }
       );
       dispatch(hideLoading());
-      if (resposne.data.success) {
-        toast.success(resposne.data.message);
+      if (response.data.success) {
+        toast.success(response.data.message);
         getAppointmentsData();
       }
     } catch (error) {
@@ -115,9 +107,6 @@ function doctorAppointments() {
     },
   ];
   useEffect(() => {
-    ProtectedRoute();
-  }, []);
-  useEffect(() => {
     getAppointmentsData();
   }, []);
   return (
@@ -142,4 +131,4 @@ function doctorAppointments() {
   );
 }
 
-export default doctorAppointments;
+export default DoctorAppointments;

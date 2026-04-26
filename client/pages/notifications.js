@@ -9,22 +9,11 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { setUser } from "../redux/userSlice";
 
-const notifications = () => {
+const Notifications = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
   const router = useRouter();
   console.log(user);
-  const ProtectedRoute = () => {
-    if (typeof window !== "undefined") {
-      const item = localStorage.getItem("token");
-      if (!item) {
-        return Router.push("/login");
-      }
-    }
-  };
-  useEffect(() => {
-    ProtectedRoute();
-  }, []);
 
   const markAllASSeen = async () => {
     try {
@@ -87,8 +76,9 @@ const notifications = () => {
               Mark all as seen
             </h1>
           </div>
-          {user.unseenNotifications.map((notification) => (
+          {user.unseenNotifications.map((notification, index) => (
             <div
+              key={index}
               className="card p-2 mt-2"
               onClick={() => {
                 router.push(notification.onClickPath);
@@ -104,8 +94,9 @@ const notifications = () => {
               Delete all
             </h1>
           </div>
-          {user.seenNotifications.map((notification) => (
+          {user.seenNotifications.map((notification, index) => (
             <div
+              key={index}
               className="card p-2 mt-2"
               onClick={() => {
                 router.push(notification.onClickPath);
@@ -120,4 +111,4 @@ const notifications = () => {
   );
 };
 
-export default notifications;
+export default Notifications;

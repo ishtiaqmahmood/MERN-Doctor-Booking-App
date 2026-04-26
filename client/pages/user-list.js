@@ -6,17 +6,9 @@ import axios from "axios";
 import { Table } from "antd";
 import moment from "moment/moment";
 
-const userList = () => {
+const UserList = () => {
   const [user, setUser] = useState([]);
   const dispatch = useDispatch();
-  const ProtectedRoute = () => {
-    if (typeof window !== "undefined") {
-      const item = localStorage.getItem("token");
-      if (!item) {
-        return Router.push("/login");
-      }
-    }
-  };
   const getUserData = async () => {
     try {
       dispatch(showLoading());
@@ -43,9 +35,6 @@ const userList = () => {
     getUserData();
   }, []);
 
-  useEffect(() => {
-    ProtectedRoute();
-  }, []);
 
   const columns = [
     {
@@ -80,4 +69,4 @@ const userList = () => {
   );
 };
 
-export default userList;
+export default UserList;

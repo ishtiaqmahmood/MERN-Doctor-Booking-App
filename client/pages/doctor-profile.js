@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 import DoctorForm from "../components/DoctorForm";
 import moment from "moment/moment";
 
-const doctorProfile = () => {
+const DoctorProfile = () => {
   const { user } = useSelector((state) => state.user);
   const [doctor, setDoctor] = useState(null);
   const router = useRouter();
@@ -82,17 +82,6 @@ const doctorProfile = () => {
     }
   }, [router.isReady]);
 
-  const ProtectedRoute = () => {
-    if (typeof window !== "undefined") {
-      const item = localStorage.getItem("token");
-      if (!item) {
-        return Router.push("/login");
-      }
-    }
-  };
-  useEffect(() => {
-    ProtectedRoute();
-  }, []);
 
   return (
     <Layout>
@@ -116,4 +105,4 @@ const doctorProfile = () => {
   );
 };
 
-export default doctorProfile;
+export default DoctorProfile;

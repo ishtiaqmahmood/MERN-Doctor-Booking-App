@@ -7,7 +7,7 @@ import Router from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 import { showLoading, hideLoading } from "../redux/alertSlice";
 
-function login() {
+function Login() {
   const { loading } = useSelector((state) => state.alerts);
   const dispatch = useDispatch();
   const onFinishHandler = async (values) => {
@@ -77,4 +77,4 @@ function login() {
   );
 }
 
-export default login;
+export default Login;

@@ -11,7 +11,7 @@ import moment from "moment/moment";
 import { Col, DatePicker, Row, TimePicker, Button } from "antd";
 import Image from "next/image";
 
-const bookAppointment = () => {
+const BookAppointment = () => {
   const { user } = useSelector((state) => state.user);
   const [doctor, setDoctor] = useState(null);
   const [isAvailable, setIsAvailable] = useState(false);
@@ -22,17 +22,6 @@ const bookAppointment = () => {
   //console.log(params);
 
   const dispatch = useDispatch();
-  const ProtectedRoute = () => {
-    if (typeof window !== "undefined") {
-      const item = localStorage.getItem("token");
-      if (!item) {
-        return Router.push("/login");
-      }
-    }
-  };
-  useEffect(() => {
-    ProtectedRoute();
-  }, []);
 
   const getDoctorData = async () => {
     try {
@@ -229,4 +218,4 @@ const bookAppointment = () => {
   );
 };
 
-export default bookAppointment;
+export default BookAppointment;

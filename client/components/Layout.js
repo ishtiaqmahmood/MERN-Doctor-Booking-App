@@ -106,6 +106,7 @@ const Layout = ({ children }) => {
               const isActive = location.pathname === menu.path;
               return (
                 <div
+                  key={menu.name}
                   className={`d-flex menu-item ${
                     isActive && `active-menu-item`
                   }`}

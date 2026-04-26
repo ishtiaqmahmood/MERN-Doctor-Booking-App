@@ -8,7 +8,7 @@ import Router from "next/router";
 import DoctorForm from "../components/DoctorForm";
 import moment from "moment";
 
-const applyDoctor = () => {
+const ApplyDoctor = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
   const onFinish = async (values) => {
@@ -45,17 +45,6 @@ const applyDoctor = () => {
       console.log(error);
     }
   };
-  const ProtectedRoute = () => {
-    if (typeof window !== "undefined") {
-      const item = localStorage.getItem("token");
-      if (!item) {
-        return Router.push("/login");
-      }
-    }
-  };
-  useEffect(() => {
-    ProtectedRoute();
-  }, []);
   return (
     <Layout>
       <Toaster
@@ -78,4 +67,4 @@ const applyDoctor = () => {
   );
 };
 
-export default applyDoctor;
+export default ApplyDoctor;
