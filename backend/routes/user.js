@@ -63,7 +63,7 @@ router.post("/login", async (req, res) => {
 
 router.post("/get-user-info-by-id", auth, async (req, res) => {
   try {
-    const user = await User.findOne({ _id: req.body.userId });
+    const user = await User.findOne({ _id: req.userId });
     //console.log(user);
     user.password = undefined;
     if (!user) {
@@ -113,7 +113,7 @@ router.post("/apply-doctor-account", auth, async (req, res) => {
 
 router.post("/mark-all-notifications-as-seen", auth, async (req, res) => {
   try {
-    const user = await User.findOne({ _id: req.body.userId });
+    const user = await User.findOne({ _id: req.userId });
     const unseenNotifications = user.unseenNotifications;
     const seenNotifications = user.seenNotifications;
     seenNotifications.push(...unseenNotifications);
@@ -129,7 +129,7 @@ router.post("/mark-all-notifications-as-seen", auth, async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).send({
-      message: "Error applying doctor account",
+      message: "Error marking all notifications as seen",
       success: false,
       error,
     });
@@ -138,7 +138,7 @@ router.post("/mark-all-notifications-as-seen", auth, async (req, res) => {
 
 router.post("/delete-all-notifications", auth, async (req, res) => {
   try {
-    const user = await User.findOne({ _id: req.body.userId });
+    const user = await User.findOne({ _id: req.userId });
     user.seenNotifications = [];
     user.unseenNotifications = [];
     const updatedUser = await user.save();
@@ -152,7 +152,7 @@ router.post("/delete-all-notifications", auth, async (req, res) => {
     console.log(err);
     res
       .status(500)
-      .send({ message: "Error applying doctor account", success: false, err });
+      .send({ message: "Error deleting all notifications", success: false, err });
   }
 });
 
@@ -167,7 +167,7 @@ router.get("/get-all-approved-doctors", auth, async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).send({
-      message: "Error applying doctor account",
+      message: "Error fetching doctors",
       success: false,
       error,
     });
@@ -242,7 +242,7 @@ router.post("/check-booking-availability", auth, async (req, res) => {
 
 router.get("/get-appointments-by-user-id", auth, async (req, res) => {
   try {
-    const appointments = await Appointment.find({ userId: req.body.userId });
+    const appointments = await Appointment.find({ userId: req.userId });
     res.status(200).send({
       message: "Appointments fetched successfully",
       success: true,

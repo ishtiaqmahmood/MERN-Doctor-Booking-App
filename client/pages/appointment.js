@@ -7,17 +7,9 @@ import { Table } from "antd";
 import toast, { Toaster } from "react-hot-toast";
 import moment from "moment/moment";
 
-const appointment = () => {
+const Appointment = () => {
   const [appointments, setAppointments] = useState([]);
   const dispatch = useDispatch();
-  const ProtectedRoute = () => {
-    if (typeof window !== "undefined") {
-      const item = localStorage.getItem("token");
-      if (!item) {
-        return Router.push("/login");
-      }
-    }
-  };
   const getAppointmentsData = async () => {
     try {
       dispatch(showLoading());
@@ -44,9 +36,6 @@ const appointment = () => {
     getAppointmentsData();
   }, []);
 
-  useEffect(() => {
-    ProtectedRoute();
-  }, []);
   const columns = [
     {
       title: "Id",
@@ -91,4 +80,4 @@ const appointment = () => {
   );
 };
 
-export default appointment;
+export default Appointment;

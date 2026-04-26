@@ -15,7 +15,7 @@ router.get("/get-all-doctors", auth, async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).send({
-      message: "Error applying doctor account",
+      message: "Error fetching doctors",
       success: false,
       error,
     });
@@ -33,7 +33,7 @@ router.get("/get-all-users", auth, async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).send({
-      message: "Error applying doctor account",
+      message: "Error fetching users",
       success: false,
       error,
     });
@@ -61,7 +61,7 @@ router.post("/change-doctor-status", auth, async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).send({
-      message: "Error applying doctor account",
+      message: "Error updating doctor status",
       success: false,
       error,
     });

@@ -7,7 +7,7 @@ import Router from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 import { showLoading, hideLoading } from "../redux/alertSlice";
 
-function register() {
+function Register() {
   const { loading } = useSelector((state) => state.alerts);
   const dispatch = useDispatch();
   const onFinishHandler = async (values) => {
@@ -84,4 +84,4 @@ function register() {
   );
 }
 
-export default register;
+export default Register;

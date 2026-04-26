@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import axios from "axios";
 import ProtectedRoute from "../components/ProtectedRoute";
 
-function home() {
+function Home() {
   const getData = async () => {
     try {
       const response = await axios.post(
@@ -27,4 +27,4 @@ function home() {
   return <div>home</div>;
 }
 
-export default home;
+export default Home;

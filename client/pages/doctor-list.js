@@ -7,17 +7,9 @@ import { Table } from "antd";
 import toast, { Toaster } from "react-hot-toast";
 import moment from "moment/moment";
 
-const doctorList = () => {
+const DoctorList = () => {
   const [doctors, setDoctors] = useState([]);
   const dispatch = useDispatch();
-  const ProtectedRoute = () => {
-    if (typeof window !== "undefined") {
-      const item = localStorage.getItem("token");
-      if (!item) {
-        return Router.push("/login");
-      }
-    }
-  };
   const getDoctorData = async () => {
     try {
       dispatch(showLoading());
@@ -69,9 +61,6 @@ const doctorList = () => {
     getDoctorData();
   }, []);
 
-  useEffect(() => {
-    ProtectedRoute();
-  }, []);
 
   const columns = [
     {
@@ -143,4 +132,4 @@ const doctorList = () => {
   );
 };
 
-export default doctorList;
+export default DoctorList;
